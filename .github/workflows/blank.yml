@@ -1,0 +1,24 @@
+name: Ubuntu RDP Setup
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up RDP
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xrdp
+        sudo systemctl enable xrdp
+        sudo systemctl start xrdp
+        # Set up user and password as needed
+        echo "your_username:your_password" | sudo chpasswd
+
+    - name: Display Public IP
+      run: |
+        curl ifconfig.me
